@@ -1,7 +1,7 @@
 const handleBindings = require('./bindings');
+const logger = require('./utils/logger');
 
-// TODO: get it from package.json
-const NAME = '@ladifire-opensource/stylex';
+const NAME = '@genx/stylex';
 
 module.exports = function plugin({inject = true}) {
   let root;
@@ -15,6 +15,11 @@ module.exports = function plugin({inject = true}) {
       ImportDefaultSpecifier(path, state) {
         if (path.parent.source.value !== NAME) {return;}
 
+        logger.init(state.opts);
+        logger.log({
+          options: state.opts
+        });
+
         const importName = path.node.local.name;
         const bindings = path.scope.bindings[importName].referencePaths;
 
@@ -23,6 +28,8 @@ module.exports = function plugin({inject = true}) {
           // Remove duplicates
           .filter((e, i, a) => a.indexOf(e) === i)
           .join('');
+
+        logger.flush();
       }
     }
   };

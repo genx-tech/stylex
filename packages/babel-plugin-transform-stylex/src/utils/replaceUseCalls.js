@@ -4,9 +4,11 @@
 const flattenClasses = require('./classNames').flattenClasses;
 const generateExpression = require('./generateExpression');
 const normalizeArguments = require('./normalizeArguments');
+const logger = require('./logger');
 
 function getUses(varDec) {
   if (!varDec.isVariableDeclarator()) {
+    logger.log({ use: varDec });
     throw varDec.buildCodeFrameError('Style has to be assigned to variable');
   }
 
@@ -45,6 +47,8 @@ function replaceUseCalls(varDec, classes) {
   }
 
   const uses = getUses(varDec);
+  logger.log({ uses });
+
   const names = new Set();
   const flatClasses = flattenClasses(classes);
 

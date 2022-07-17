@@ -9,9 +9,7 @@ const {
   isPropertyCall
 } = require('../utils');
 const handleCreateBindings = require('./handleCreateBindings');
-const handleDedupeBindings = require('./handleDedupeBindings');
 const handleKeyframesBindings = require('./handleKeyframesBindings');
-const handleComposeBindings = require('./handleComposeBindings');
 
 require('../utils/pollyfils.js');
 
@@ -22,16 +20,8 @@ function handleBinding(node, opts, path) {
     return handleCreateBindings(node, opts, path);
   }
 
-  if (isPropertyCall(node, 'dedupe')) {
-    return handleDedupeBindings(node, opts, path);
-  }
-
   if (isPropertyCall(node, 'keyframes')) {
     return handleKeyframesBindings(node, opts, path);
-  }
-
-  if (isPropertyCall(node, 'compose')) {
-    return handleComposeBindings(node, opts, path);
   }
 
   // TODO: consider to throw an error if there're nothing match

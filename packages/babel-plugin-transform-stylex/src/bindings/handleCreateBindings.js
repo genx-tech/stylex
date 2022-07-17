@@ -12,7 +12,10 @@ const classNames = require('../utils').classNames;
 const filterObject = require('../utils').filterObject;
 const replaceUseCalls = require('../utils').replaceUseCalls;
 const replaceDeclaration = require('../utils').replaceDeclaration;
+const extractAllProperties = require('../utils').extractAllProperties;
 const injectStyles = require('../utils').injectStyles;
+
+const logger = require('../utils/logger');
 
 module.exports = function handleCreateBindings(identifier, opts, path) {
   const callExpr = identifier.parentPath.parentPath;
@@ -22,10 +25,19 @@ module.exports = function handleCreateBindings(identifier, opts, path) {
   let classes;
 
   try {
-    styles = stylesUtils.getStyles(objExpr);
-    classes = classNames.getClasses(styles);
+    styles = stylesUtils.getStyles(objExpr);    
+    classes = classNames.getClasses(styles);    
 
-    const usedProperties = replaceUseCalls(callExpr.parentPath, classes);
+    let usedProperties 
+
+    if (opts.useAll) {
+      usedProperties = extractAllProperties(classes);
+    } else {
+      usedProperties = replaceUseCalls(callExpr.parentPath, classes);
+    }   
+
+    logger.log({ styles, classes, usedProperties });
+
     styles = filterObject(styles, usedProperties);
     classes = filterObject(classes, usedProperties);
   } catch (e) {

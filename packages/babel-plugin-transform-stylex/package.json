@@ -1,6 +1,6 @@
 {
-  "name": "@ladifire-opensource/babel-plugin-transform-stylex",
-  "version": "0.1.0-beta.0",
+  "name": "@genx/babel-plugin-transform-stylex",
+  "version": "0.1.1",
   "description": "Transform Stylex code",
   "license": "MIT",
   "publishConfig": {
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ladifire-opensource/stylex"
+    "url": "https://github.com/genx-tech/stylex"
   },
   "dependencies": {
     "@babel/template": "^7.10.4",

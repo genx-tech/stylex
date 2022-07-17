@@ -6,6 +6,7 @@ const classNames = require('./classNames');
 const filterObject = require('./filterObject');
 const replaceUseCalls = require('./replaceUseCalls');
 const replaceDeclaration = require('./replaceDeclaration');
+const extractAllProperties = require('./extractAllProperties');
 const injectStyles = require('./injectStyles');
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
   filterObject,
   replaceUseCalls,
   replaceDeclaration,
+  extractAllProperties,
   injectStyles
 };
